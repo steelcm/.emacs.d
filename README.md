@@ -5,6 +5,8 @@ Eye Candy for your .emacs.d.
 
 > Development journey of creating lightweight yet elegant Emacs
 
+![Beautiful Emacs](./beautiful-emacs.PNG?raw=true)
+
 External Packages Used
 ------
   - highlight-parenthese

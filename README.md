@@ -1,7 +1,7 @@
 Beautiful Emacs
 =========
 
-Eye Candy for your .Emacs.d.
+Eye Candy for your .emacs.d.
 
 > Development journey of creating lightweight yet elegant Emacs
 

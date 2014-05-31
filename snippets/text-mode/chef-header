@@ -1,0 +1,14 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: chef-header
+# key: chefh
+# binding: direct-keybinding
+# --
+/* 
+ * author: reversiblean <reversiblean@live.com>
+ * code: $1
+ * lang: ${2:C}
+ * website: https://reversiblean-reversiblean.rhcloud.com
+ * forkme on GitHub @ reversiblean
+ */   
+ 
+ $0

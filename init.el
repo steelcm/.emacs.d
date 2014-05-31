@@ -3,15 +3,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(auto-save-default nil)
  '(custom-safe-themes (quote ("a774c5551bc56d7a9c362dca4d73a374582caedb110c201a09b410c0ebbb5e70" default)))
+ '(fringe-mode 0 nil (fringe))
  '(global-linum-mode t)
  '(hl-paren-colors (quote ("gold" "IndianRed1")))
- '(ido-mode (quote both) nil (ido))
  '(inhibit-startup-screen t)
- '(linum-delay t)
+ '(initial-buffer-choice "~/.emacs.d/splash")
  '(menu-bar-mode nil)
- '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/"))))
+ '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/") ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces
@@ -19,10 +18,38 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:height 105 :family "Consolas"))))
- '(fringe ((t (:foreground "#dee2eb"))))
- '(highlight ((t (:background "#181d28"))))
- '(linum-highlight-face ((t (:inherit default :foreground "gold")))))
+ '(default ((t (:weight normal :height 120 :family "Consolas"))))
+ '(linum-highlight-face ((t (:inherit default :background "#1d1f21" :foreground "gold")))))
+
+;; IN-BUILT CUSTOMIZATIONS
+
+;; stop creating ~backup and #autosave# files
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+
+;; wrap the lines at word level, and allow the navigation at "visual lines" level
+(setq-default truncate-lines t)
+
+;; No tabs, only 4 spaces, as default
+(setq-default indent-tabs-mode nil)
+(setq tab-width 4)
+
+;; enable ido
+(require 'ido)
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(setq ido-file-extensions-order '(".c" ".cpp" ".org" ".txt" ".el")) ; file order preference
+(ido-mode t)
+
+;; maximize on startup
+(defun maximize-frame ()
+  "Maximizes the active frame in Windows"
+  (interactive)
+  ;; Send a `WM_SYSCOMMAND' message to the active frame with the
+  ;; `SC_MAXIMIZE' parameter.
+  (when (eq system-type 'windows-nt)
+    (w32-send-sys-command 61488)))
+(add-hook 'window-setup-hook 'maximize-frame t)
 
 ;;; CUSTOMIZATIONS FOR EXTERNAL PACKAGES GOES IN HERE
 
@@ -31,10 +58,6 @@
 (setq package-enable-at-startup nil)
 (package-initialize)
 ;; (package-initialize) will go through all the installed packages (in ~/.emacs.d/elpa/ or similar, depending on configuration), and add them to the load path.
-
-;; Highlight current line number
-(require 'hlinum)
-(hlinum-activate)
 
 ;; Highlight matching parentheses
 (require 'highlight-parentheses)
@@ -48,14 +71,32 @@
 (require 'powerline)
 (powerline-default-theme)
 
-(load-theme 'brin t)
+;; LOAD THEME
+(require 'sublime-themes)
+(load-theme 'brin)
 
-(setq-default fringe-indicator-alist 
-	      '((truncation left-arrow right-arrow)
-		(continuation nil right-arrow)))
+;; THEME CUSTOMIZATIONS
+(set-face-background 'default "#1d1f21")
+(set-face-background 'linum "#1d1f21")
+
+;; Highlight current line number
+(require 'hlinum)
+(hlinum-activate)
+
+;; evil mode
+;; set vars before evil is loaded
+(require 'evil)
+(evil-mode 1)
+
+;; yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
+
+;;(setq-default fringe-indicator-alist 
+;;	      '((truncation left-arrow right-arrow)
+;;		(continuation nil right-arrow)))
 
 ;; SMOOTH SCROLLING
 
 ; Scroll just one line when hitting bottom of window
 (setq scroll-conservatively 10000)
-

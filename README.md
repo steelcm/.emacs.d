@@ -20,3 +20,6 @@ Installation
 cd ~/
 git clone [git-repo-url]
 ```
+Package Customization
+-----
+

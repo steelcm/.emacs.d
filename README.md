@@ -1,6 +1,8 @@
 Beautiful Emacs
 =========
 
+Install on windows: `mklink /D ~/.emacs.d /{git repository location}/`
+
 Eye Candy for your .emacs.d.
 
 > Development journey of creating lightweight yet elegant Emacs
